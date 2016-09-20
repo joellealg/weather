@@ -1,20 +1,18 @@
 #!/bin/bash
 
-echo "What day do you want to know?"
+year=`date -d yesterday +%Y`
 
-read day
+month=`date -d yesterday +%m`
 
-echo "What month do you want to know?"
+day=`date -d yesterday +%d`
 
-read month
-
-echo "What year do you want to know?"
-
-read year
+#echo "$year and $month and $day"
 
 curl "https://www.wunderground.com/history/airport/GNV/$year/$month/$day/DailyHistory.heml?&format=1" > gnv.txt
 
 maxTemp=`awk -F',' '{print $2}' gnv.txt | sort -n | tail -n1`
 
 echo The Max temp is $maxTemp
+
+echo "$year and $month and $day"
 
